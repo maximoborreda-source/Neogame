@@ -1,0 +1,11 @@
+Propósito del archivo:
+
+Este script maneja la lógica interactiva, el comportamiento dinámico y la gestión de estados globales de la interfaz de usuario. Sus funciones principales incluyen:
+
+Gestión del catálogo: Base de datos estática inicial (productosDB) y función de renderizado dinámico (renderizarProductos) para inyectar las tarjetas de productos en el DOM según filtros o etiquetas.
+
+Aviso Legal Animado: Automatiza la aparición de un modal flotante tras un retraso de 4 segundos utilizando temporizadores (setTimeout) y manipulación de clases CSS (.aparecer), permitiendo también su cierre interactivo.
+
+Menú Lateral (Drawer): Controla la apertura y cierre del panel de navegación lateral y su capa de fondo (overlay), además de gestionar el comportamiento de las subcategorías según el evento de interacción (hover).
+
+Modo Claro / Oscuro: Alterna dinámicamente las clases del elemento <body> para cambiar entre esquemas de color y actualiza los indicadores visuales correspondientes.
