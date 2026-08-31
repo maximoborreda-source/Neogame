@@ -26,7 +26,7 @@ const productosDB = [
         categoria: "gabinetes", 
         tags: ["gabinetes"], 
         precio: 135000, 
-        imagen: "Imagenes/Productos/ComputadoraCYBERPOWER.jfif" 
+        imagen: "imagenes/Productos/ComputadoraCYBERPOWER.jfif" 
     },
     { 
         id: 3, 
