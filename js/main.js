@@ -26,7 +26,7 @@ const productosDB = [
         categoria: "gabinetes", 
         tags: ["gabinetes"], 
         precio: 135000, 
-        imagen: "imagenes/Productos/Computadora CYBERPOWER.jfif" 
+        imagen: "Imagenes/Productos/ComputadoraCYBERPOWER.jfif" 
     },
     { 
         id: 3, 
@@ -52,7 +52,7 @@ const productosDB = [
         tags: ["perifericos", "oferta"], 
         precio: 95000, 
         descuento: 25,
-        imagen: "imagenes/Productos/Kit Perifericos.jfif" 
+        imagen: "Imagenes/Productos/KitPerifericos.jfif" 
     },
     { 
         id: 6, 
@@ -60,7 +60,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 52000, 
-        imagen: "imagenes/Productos/Mouse Gamer Razen Pro.jfif" 
+        imagen: "Imagenes/Productos/MouseGamerRazenPro.jfif" 
     },
     { 
         id: 7, 
@@ -69,7 +69,7 @@ const productosDB = [
         tags: ["perifericos", "oferta"], 
         precio: 41000, 
         descuento: 15,
-        imagen: "imagenes/Productos/RedDragon Mouse Inalambrico.jfif" 
+        imagen: "Imagenes/Productos/RedDragonMouseInalambrico.jfif" 
     },
     { 
         id: 8, 
@@ -78,7 +78,7 @@ const productosDB = [
         tags: ["placas-video", "nvidia", "oferta"], 
         precio: 1850000, 
         descuento: 12,
-        imagen: "imagenes/Productos/GIGABYTE GeForce RTX 4090.jfif" 
+        imagen: "Imagenes/Productos/GIGABYTEGeForceRTX4090.jfif" 
     },
     { 
         id: 19, 
@@ -86,7 +86,7 @@ const productosDB = [
         categoria: "placas-video", 
         tags: ["placas-video"], 
         precio: 1450000, 
-        imagen: "imagenes/Productos/placa-rx9070xt.jfif" 
+        imagen: "Imagenes/Productos/placa-rx9070xt.jfif" 
     },
     { 
         id: 21, 
@@ -94,7 +94,7 @@ const productosDB = [
         categoria: "gabinetes", 
         tags: ["gabinetes"], 
         precio: 75000, 
-        imagen: "imagenes/Productos/Gabinete mini-ATX.jfif" 
+        imagen: "Imagenes/Productos/Gabinetemini-ATX.jfif" 
     },
     { 
         id: 22, 
@@ -103,7 +103,7 @@ const productosDB = [
         tags: ["computadoras", "oferta"], 
         precio: 350000, 
         descuento: 20,
-        imagen: "imagenes/Productos/Kit pc completa.jfif" 
+        imagen: "Imagenes/Productos/Kitpccompleta.jfif" 
     },
     { 
         id: 23, 
@@ -111,7 +111,7 @@ const productosDB = [
         categoria: "notebooks", 
         tags: ["notebooks"], 
         precio: 650000, 
-        imagen: "imagenes/Productos/Lenovo Slim con Intel Core i7.jfif" 
+        imagen: "Imagenes/Productos/LenovoSlimconIntelCorei7.jfif" 
     },
     {
         id: 9, 
@@ -119,7 +119,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "amd", "procesadores"], 
         precio: 210000, 
-        imagen: "imagenes/Productos/Procesador AMD RYZEN 5 AM4 .jfif" 
+        imagen: "Imagenes/Productos/ProcesadorAMDRYZEN5AM4.jfif" 
     },
     { 
         id: 10, 
@@ -127,7 +127,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "intel", "procesadores"], 
         precio: 195000, 
-        imagen: "imagenes/Productos/procesador intel.jfif" 
+        imagen: "Imagenes/Productos/procesadorintel.jfif" 
     },
     { 
         id: 11, 
@@ -136,7 +136,7 @@ const productosDB = [
         tags: ["componentes", "almacenamiento", "oferta"], 
         precio: 32000, 
         descuento: 10, 
-        imagen: "imagenes/Productos/Maxell Disco solido 240 GB.jfif" 
+        imagen: "Imagenes/Productos/MaxellDiscosolido240GB.jfif" 
     },
     { 
         id: 12, 
@@ -144,7 +144,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "memoria"], 
         precio: 78000, 
-        imagen: "imagenes/Productos/Memoria Ram DDR4 16 GB (2x8 GB) .jfif" 
+        imagen: "Imagenes/Productos/MemoriaRamDDR416GB(2x8GB).jfif" 
     },
     { 
         id: 13, 
@@ -152,7 +152,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "almacenamiento"], 
         precio: 85000, 
-        imagen: "imagenes/Productos/GoldenFir Disco solido 1 TB.jfif" 
+        imagen: "Imagenes/Productos/GoldenFirDiscosolido1TB.jfif" 
     },
     { 
         id: 14, 
@@ -161,7 +161,7 @@ const productosDB = [
         tags: ["computadoras", "oferta"], 
         precio: 1200000, 
         descuento: 15, 
-        imagen: "imagenes/Productos/Computadora Gamer iluminación azul.jfif" 
+        imagen: "Imagenes/Productos/ComputadoraGameriluminaciónazul.jfif" 
     },
     { 
         id: 15, 
@@ -170,7 +170,7 @@ const productosDB = [
         tags: ["monitores", "oferta"], 
         precio: 230000, 
         descuento: 10, 
-        imagen: "imagenes/Productos/Monitor Full HD black NEOVO.jfif" 
+        imagen: "Imagenes/Productos/MonitorFullHDblackNEOVO.jfif" 
     },
     { 
         id: 16, 
@@ -178,7 +178,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes"], 
         precio: 160000, 
-        imagen: "imagenes/Productos/Placa Madre Gigabyte B760M LGA Micro-ATX.jfif" 
+        imagen: "Imagenes/Productos/PlacaMadreGigabyteB760MLGAMicro-ATX.jfif" 
     },
     { 
         id: 17, 
@@ -186,7 +186,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 190000, 
-        imagen: "imagenes/Productos/silla de trabajo morado con iluminación.jfif" 
+        imagen: "Imagenes/Productos/silladetrabajomoradoconiluminación.jfif" 
     },
     { 
         id: 18, 
@@ -194,7 +194,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 175000, 
-        imagen: "imagenes/Productos/silla de trabajo roja.jfif" 
+        imagen: "Imagenes/Productos/silladetrabajoroja.jfif" 
     }
 ];
 
@@ -331,7 +331,6 @@ if (btnLinkProductos) {
 // ==========================================
 const enlacesFiltro = document.querySelectorAll('.filtro-link, .drawer-item-cat, .subcat-item, [data-filtro], [data-target], header nav a');
 
-enlacesFiltro.schGrid = true;
 enlacesFiltro.forEach(enlace => {
     enlace.addEventListener('click', (e) => {
         const filtroAttr = (enlace.getAttribute('data-filtro') || enlace.getAttribute('data-target') || '').trim().toLowerCase();
@@ -525,7 +524,6 @@ function renderizarCatalogo(productosAMostrar = productosDB) {
     const contenedorCatalogo = document.querySelector('.catalogo');
     if (!contenedorCatalogo) return;
 
-    // Verificamos si hay un criterio de ordenamiento activo en el select
     const sortSelect = document.getElementById('sortSelect');
     let productosOrdenados = [...productosAMostrar];
 
@@ -579,7 +577,6 @@ function renderizarCatalogo(productosAMostrar = productosDB) {
         const card = document.createElement('section');
         card.className = 'producto-card';
         card.style.cursor = 'pointer';
-        // Añadimos data-precio y data-nombre por si se requiere manipulación externa del DOM
         card.setAttribute('data-precio', prod.precio);
         card.setAttribute('data-nombre', prod.nombre);
         
@@ -612,12 +609,10 @@ function renderizarCatalogo(productosAMostrar = productosDB) {
     });
 }
 
-// Evento para escuchar cuando cambie el selector de orden y renderizar nuevamente
 document.addEventListener('DOMContentLoaded', () => {
     const sortSelect = document.getElementById('sortSelect');
     if (sortSelect) {
         sortSelect.addEventListener('change', () => {
-            // Re-ejecuta la función actual manteniendo los productos filtrados en pantalla (o el catálogo completo)
             renderizarCatalogo(productosDB);
         });
     }
