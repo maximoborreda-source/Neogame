@@ -52,7 +52,7 @@ const productosDB = [
         tags: ["perifericos", "oferta"], 
         precio: 95000, 
         descuento: 25,
-        imagen: "Imagenes/Productos/KitPerifericos.jfif" 
+        imagen: "imagenes/Productos/KitPerifericos.jfif" 
     },
     { 
         id: 6, 
@@ -60,7 +60,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 52000, 
-        imagen: "Imagenes/Productos/MouseGamerRazenPro.jfif" 
+        imagen: "imagenes/Productos/MouseGamerRazenPro.jfif" 
     },
     { 
         id: 7, 
@@ -69,7 +69,7 @@ const productosDB = [
         tags: ["perifericos", "oferta"], 
         precio: 41000, 
         descuento: 15,
-        imagen: "Imagenes/Productos/RedDragonMouseInalambrico.jfif" 
+        imagen: "imagenes/Productos/RedDragonMouseInalambrico.jfif" 
     },
     { 
         id: 8, 
@@ -78,7 +78,7 @@ const productosDB = [
         tags: ["placas-video", "nvidia", "oferta"], 
         precio: 1850000, 
         descuento: 12,
-        imagen: "Imagenes/Productos/GIGABYTEGeForceRTX4090.jfif" 
+        imagen: "imagenes/Productos/GIGABYTEGeForceRTX4090.jfif" 
     },
     { 
         id: 19, 
@@ -86,7 +86,7 @@ const productosDB = [
         categoria: "placas-video", 
         tags: ["placas-video"], 
         precio: 1450000, 
-        imagen: "Imagenes/Productos/placa-rx9070xt.jfif" 
+        imagen: "imagenes/Productos/placa-rx9070xt.jfif" 
     },
     { 
         id: 21, 
@@ -94,7 +94,7 @@ const productosDB = [
         categoria: "gabinetes", 
         tags: ["gabinetes"], 
         precio: 75000, 
-        imagen: "Imagenes/Productos/Gabinetemini-ATX.jfif" 
+        imagen: "imagenes/Productos/Gabinetemini-ATX.jfif" 
     },
     { 
         id: 22, 
@@ -103,7 +103,7 @@ const productosDB = [
         tags: ["computadoras", "oferta"], 
         precio: 350000, 
         descuento: 20,
-        imagen: "Imagenes/Productos/Kitpccompleta.jfif" 
+        imagen: "imagenes/Productos/Kitpccompleta.jfif" 
     },
     { 
         id: 23, 
@@ -111,7 +111,7 @@ const productosDB = [
         categoria: "notebooks", 
         tags: ["notebooks"], 
         precio: 650000, 
-        imagen: "Imagenes/Productos/LenovoSlimconIntelCorei7.jfif" 
+        imagen: "imagenes/Productos/LenovoSlimconIntelCorei7.jfif" 
     },
     {
         id: 9, 
@@ -119,7 +119,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "amd", "procesadores"], 
         precio: 210000, 
-        imagen: "Imagenes/Productos/ProcesadorAMDRYZEN5AM4.jfif" 
+        imagen: "imagenes/Productos/ProcesadorAMDRYZEN5AM4.jfif" 
     },
     { 
         id: 10, 
@@ -127,7 +127,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "intel", "procesadores"], 
         precio: 195000, 
-        imagen: "Imagenes/Productos/procesadorintel.jfif" 
+        imagen: "imagenes/Productos/procesadorintel.jfif" 
     },
     { 
         id: 11, 
@@ -136,7 +136,7 @@ const productosDB = [
         tags: ["componentes", "almacenamiento", "oferta"], 
         precio: 32000, 
         descuento: 10, 
-        imagen: "Imagenes/Productos/MaxellDiscosolido240GB.jfif" 
+        imagen: "imagenes/Productos/MaxellDiscosolido240GB.jfif" 
     },
     { 
         id: 12, 
@@ -144,7 +144,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "memoria"], 
         precio: 78000, 
-        imagen: "Imagenes/Productos/MemoriaRamDDR416GB(2x8GB).jfif" 
+        imagen: "imagenes/Productos/MemoriaRamDDR416GB(2x8GB).jfif" 
     },
     { 
         id: 13, 
@@ -152,7 +152,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes", "almacenamiento"], 
         precio: 85000, 
-        imagen: "Imagenes/Productos/GoldenFirDiscosolido1TB.jfif" 
+        imagen: "imagenes/Productos/GoldenFirDiscosolido1TB.jfif" 
     },
     { 
         id: 14, 
@@ -161,7 +161,7 @@ const productosDB = [
         tags: ["computadoras", "oferta"], 
         precio: 1200000, 
         descuento: 15, 
-        imagen: "Imagenes/Productos/ComputadoraGameriluminaciónazul.jfif" 
+        imagen: "imagenes/Productos/ComputadoraGameriluminaciónazul.jfif" 
     },
     { 
         id: 15, 
@@ -170,7 +170,7 @@ const productosDB = [
         tags: ["monitores", "oferta"], 
         precio: 230000, 
         descuento: 10, 
-        imagen: "Imagenes/Productos/MonitorFullHDblackNEOVO.jfif" 
+        imagen: "imagenes/Productos/MonitorFullHDblackNEOVO.jfif" 
     },
     { 
         id: 16, 
@@ -178,7 +178,7 @@ const productosDB = [
         categoria: "componentes", 
         tags: ["componentes"], 
         precio: 160000, 
-        imagen: "Imagenes/Productos/PlacaMadreGigabyteB760MLGAMicro-ATX.jfif" 
+        imagen: "imagenes/Productos/PlacaMadreGigabyteB760MLGAMicro-ATX.jfif" 
     },
     { 
         id: 17, 
@@ -186,7 +186,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 190000, 
-        imagen: "Imagenes/Productos/silladetrabajomoradoconiluminación.jfif" 
+        imagen: "imagenes/Productos/silladetrabajomoradoconiluminación.jfif" 
     },
     { 
         id: 18, 
@@ -194,7 +194,7 @@ const productosDB = [
         categoria: "perifericos", 
         tags: ["perifericos"], 
         precio: 175000, 
-        imagen: "Imagenes/Productos/silladetrabajoroja.jfif" 
+        imagen: "imagenes/Productos/silladetrabajoroja.jfif" 
     }
 ];
 
