@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoGame Store</title>
+    <link rel="stylesheet" href="estilo (css)/style.css">
+    <link rel="icon" type="image/png" href="Imagenes/Icono/IconoWeb.png">
+    <style>
+        /* Estilos para el Banner Rotativo (Carrusel) */
+        .banner-rotativo-seccion {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 30px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .carrusel-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+        }
+
+        .carrusel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .carrusel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carrusel-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .carrusel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 20px;
+            padding: 10px 14px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .carrusel-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .carrusel-btn.prev {
+            left: 15px;
+        }
+
+        .carrusel-btn.next {
+            right: 15px;
+        }
+
+        .carrusel-puntos {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .punto {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .punto.activo {
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .banner-rotativo-seccion {
+                margin: 15px auto;
+                padding: 0 10px;
+            }
+            .carrusel-slide img {
+                max-height: 250px;
+            }
+        }
+
+        /* Estilo optimizado para el aviso legal animado */
+        .aviso-legal-modal {
+            position: fixed;
+            bottom: 20px;
+            left: -450px !important;
+            max-width: 350px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: left 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .aviso-legal-modal.aparecer {
+            left: 20px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .aviso-legal-modal.ocultar {
+            left: -450px !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        .aviso-legal-modal h4 {
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-size: 16px;
+        }
+
+        .aviso-legal-modal p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .aviso-legal-modal .btn-legal {
+            display: inline-block;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .aviso-legal-modal .btn-cerrar {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .aviso-legal-modal .btn-cerrar:hover {
+            filter: brightness(0.9);
+        }
+
+        .nav-fila-inferior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .nav-izquierda-prod {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .btn-tres-barras {
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px 10px;
+            background: transparent;
+            border: none;
+            color: inherit;
+        }
+
+        .nav-centro-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px; 
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+
+        .nav-centro-links .nav-link {
+            white-space: nowrap; 
+            font-size: 14px;
+        }
+
+        .nav-derecha-modo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .btn-iniciar-sesion {
+            background-color: transparent;
+            border: 1px solid var(--border-color, #ccc);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            color: inherit;
+            transition: background 0.2s;
+        }
+
+        .btn-iniciar-sesion:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* --- ESTILOS DE FILTROS AVANZADOS --- */
+        .advanced-filters-section {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            padding: 0 30px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .advanced-filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            background-color: var(--card-bg, #ffffff);
+            border: 1px solid var(--border-color, #ddd);
+            padding: 15px 20px;
+            border-radius: 10px;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: var(--text-color, #333);
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+        }
+
+        .filter-group input[type="range"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--border-color, #2a2f3d);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .filter-group input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-color, #00d2ff);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .filter-group input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color, #ccc);
+            background-color: var(--bg-main, #f9f9f9);
+            color: var(--text-color, #333);
+            font-size: 13.5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .advanced-filters-section {
+                padding: 0 10px;
+            }
+            .advanced-filters-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+        }
+
+        /* Estilos del Modal Interactivo "Armá tu PC" */
+        .pc-builder-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .pc-builder-overlay.activo {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pc-builder-modal {
+            background: var(--card-bg, #ffffff);
+            color: var(--text-color, #333);
+            width: 90%;
+            max-width: 850px;
+            max-height: 90vh;
+            border-radius: 12px;
+            border: 1px solid var(--border-color, #ddd);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .pc-builder-overlay.activo .pc-builder-modal {
+            transform: scale(1);
+        }
+
+        .pc-builder-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color, #ddd);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pc-builder-header h2 {
+            font-size: 20px;
+            color: var(--accent-color, #007bff);
+        }
+
+        .pc-builder-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--text-color, #333);
+        }
+
+        .pc-builder-body {
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pc-slot-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--bg-main, #f4f6f9);
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 8px;
+            gap: 15px;
+        }
+
+        .pc-slot-info h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--text-color, #333);
+        }
+
+        .pc-slot-info p {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .pc-slot-select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color, #ddd);
+            background: var(--card-bg, #fff);
+            color: var(--text-color, #333);
+            font-size: 13px;
+            cursor: pointer;
+            max-width: 280px;
+            width: 100%;
+        }
+
+        .pc-builder-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--border-color, #ddd);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-main, #f4f6f9);
+        }
+
+        .pc-total-precio {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-color, #007bff);
+        }
+
+        .btn-comprar-pc {
+            background: var(--accent-color, #007bff);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        .btn-comprar-pc:hover {
+            filter: brightness(0.9);
+        }
+
+        /* --- ESTILOS Y ANIMACIONES PARA EL MODAL FAQ --- */
+        .faq-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .faq-overlay.activo {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .faq-modal {
+            background: var(--card-bg, #fff);
+            padding: 35px 40px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 950px;
+            color: var(--text-color, #333);
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border: 1px solid var(--border-color, #eaeaea);
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-overlay.activo .faq-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .faq-modal h2 {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--accent-color, #007bff);
+            margin-bottom: 5px;
+        }
+
+        .faq-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .faq-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .faq-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        .faq-container::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color, #007bff);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-color, #eee);
+            margin-bottom: 4px;
+        }
+
+        .faq-pregunta {
+            width: 100%;
+            text-align: left;
+            padding: 14px 6px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: inherit;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.2s ease;
+        }
+
+        .faq-pregunta:hover {
+            color: var(--accent-color, #007bff);
+        }
+
+        .faq-pregunta::after {
+            content: '▼';
+            font-size: 11px;
+            color: var(--accent-color, #007bff);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.activo .faq-pregunta::after {
+            transform: rotate(-180deg);
+        }
+
+        .faq-respuesta {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 6px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            opacity: 0;
+            transition: max-height 0.35s ease-in-out, opacity 0.3s ease-in-out, padding 0.35s ease;
+        }
+
+        .faq-item.activo .faq-respuesta {
+            max-height: 150px;
+            opacity: 0.85;
+            padding: 0 6px 14px 6px;
+        }
+
+        /* --- ESTILOS DEL MODAL DETALLE DE PRODUCTO (TIPO MERCADO LIBRE) --- */
+        .detalle-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .detalle-overlay.activo {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detalle-modal {
+            background: var(--card-bg, #fff);
+            color: var(--text-color, #333);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .detalle-overlay.activo .detalle-modal {
+            transform: scale(1);
+        }
+
+        .detalle-header-cerrar {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--text-color, #333);
+            z-index: 10;
+        }
+
+        .detalle-body {
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .detalle-grid-superior {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .detalle-grid-superior {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detalle-imagen-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            border: 1px solid var(--border-color, #eee);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            cursor: zoom-in;
+        }
+
+        .detalle-imagen-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s ease-out;
+        }
+
+        .detalle-info-compra {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detalle-condicion {
+            font-size: 12px;
+            opacity: 0.6;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .detalle-titulo {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .detalle-precio {
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--text-color, #333);
+        }
+
+        .detalle-cuotas {
+            font-size: 14px;
+            color: #00a650;
+            font-weight: 600;
+        }
+
+        .detalle-envio {
+            font-size: 13.5px;
+            color: #00a650;
+        }
+
+        .detalle-envio span {
+            font-weight: bold;
+        }
+
+        .btn-comprar-modal {
+            background: var(--accent-color, #3483fa);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: filter 0.2s;
+            text-align: center;
+        }
+
+        .btn-comprar-modal:hover {
+            filter: brightness(0.9);
+        }
+
+        .btn-carrito-modal {
+            background: rgba(52, 131, 250, 0.15);
+            color: var(--accent-color, #3483fa);
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .btn-carrito-modal:hover {
+            background: rgba(52, 131, 250, 0.25);
+        }
+
+        .detalle-seccion-tecnica {
+            border-top: 1px solid var(--border-color, #eee);
+            padding-top: 25px;
+        }
+
+        .detalle-seccion-tecnica h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent-color, #3483fa);
+        }
+
+        .detalle-tabla-specs {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .detalle-tabla-specs tr {
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
+        }
+
+        .detalle-tabla-specs th, .detalle-tabla-specs td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .detalle-tabla-specs th {
+            width: 35%;
+            opacity: 0.7;
+            font-weight: 600;
+            background: var(--bg-main, #f9f9f9);
+        }
+    </style>
+</head>
+<body class="modo-claro">
+
+    <!-- AVISO LEGAL / DERECHOS DEL CONSUMIDOR -->
+    <div id="modal-aviso" class="aviso-legal-modal">
+        <h4>Derechos del Consumidor</h4>
+        <p>Antes de realizar tus compras online, conocé las normativas vigentes para tu protección y la de nuestra tienda.</p>
+        <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/norma.htm" target="_blank" class="btn-legal">Consultar Ley Nº 24.240</a>
+        <button id="btn-cerrar-aviso" class="btn-cerrar">Entendido</button>
+    </div>
+
+    <!-- MODAL INTERACTIVO: ARMÁ TU PC ACTUALIZADO -->
+    <div id="pc-builder-overlay" class="pc-builder-overlay">
+        <div class="pc-builder-modal">
+            <div class="pc-builder-header">
+                <h2>⚡ Armá tu PC Personalizada</h2>
+                <button id="pc-builder-close" class="pc-builder-close">&times;</button>
+            </div>
+            <div class="pc-builder-body">
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>1. Procesador (CPU)</h4>
+                        <p>Elige el cerebro de tu computadora</p>
+                    </div>
+                    <select id="select-cpu" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Seleccionar Procesador --</option>
+                        <option value="9" data-precio="210000">Procesador AMD RYZEN 5 AM4 ($210.000)</option>
+                        <option value="10" data-precio="195000">Procesador Intel Core i5 ($195.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>2. Placa Madre (Motherboard)</h4>
+                        <p>Base para tus componentes</p>
+                    </div>
+                    <select id="select-mother" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Seleccionar Placa Madre --</option>
+                        <option value="16" data-precio="160000" data-socket="lga1700">Placa Madre Gigabyte B760M LGA ($160.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>3. Memoria RAM</h4>
+                        <p>Velocidad y multitarea</p>
+                    </div>
+                    <select id="select-ram" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Seleccionar Memoria RAM --</option>
+                        <option value="12" data-precio="78000">Memoria RAM DDR4 16 GB Kingston Fury ($78.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>4. Almacenamiento</h4>
+                        <p>Discos SSD para sistema y juegos</p>
+                    </div>
+                    <select id="select-storage" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Seleccionar Almacenamiento --</option>
+                        <option value="11" data-precio="32000">Disco Sólido SSD Maxell 240 GB ($32.000)</option>
+                        <option value="13" data-precio="85000">Disco Sólido SSD GoldenFir 1 TB ($85.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>5. Gabinete</h4>
+                        <p>Estructura y diseño (Valida compatibilidad)</p>
+                    </div>
+                    <select id="select-gabinete" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Seleccionar Gabinete --</option>
+                        <option value="2" data-precio="65000" data-formato="micro-atx">Gabinete c/Iluminación Azul ($65.000)</option>
+                        <option value="20" data-precio="135000" data-formato="atx">Gabinete Gamer CYBERPOWER c/ RGB ($135.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>6. Placa de Video (GPU)</h4>
+                        <p>Para rendimiento extremo en juegos</p>
+                    </div>
+                    <select id="select-gpu" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Sin Gráfica Dedicada --</option>
+                        <option value="8" data-precio="1850000">GIGABYTE GeForce RTX 4090 ($1.850.000)</option>
+                        <option value="19" data-precio="1450000">ASUS PRIME RX 9070 XT ($1.450.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>7. Monitor</h4>
+                        <p>Pantalla para tu setup</p>
+                    </div>
+                    <select id="select-monitor" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Sin Monitor --</option>
+                        <option value="15" data-precio="230000">Monitor Full HD Black NEOVO ($230.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>8. Periféricos / Kit</h4>
+                        <p>Accesorios esenciales</p>
+                    </div>
+                    <select id="select-periferico" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Sin periférico adicional --</option>
+                        <option value="3" data-precio="45000">Mouse Pro Wireless ($45.000)</option>
+                        <option value="5" data-precio="399000">Kit Periféricos / Kit Completo ($399)</option>
+                        <option value="6" data-precio="52000">Mouse Gamer Razer Pro ($52.000)</option>
+                        <option value="7" data-precio="41000">Mouse Inalámbrico Redragon ($41.000)</option>
+                    </select>
+                </div>
+
+                <div class="pc-slot-item">
+                    <div class="pc-slot-info">
+                        <h4>9. Muebles / Sillas Gamer</h4>
+                        <p>Comodidad para largas sesiones</p>
+                    </div>
+                    <select id="select-mueble" class="pc-slot-select">
+                        <option value="0" data-precio="0">-- Sin Silla --</option>
+                        <option value="17" data-precio="190000">Silla de Trabajo Morado con Iluminación ($190.000)</option>
+                        <option value="18" data-precio="175000">Silla de Trabajo Roja ($175.000)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="pc-builder-footer">
+                <div class="pc-total-precio">Total: $<span id="pc-total-monto">0</span></div>
+                <button id="btn-finalizar-pc" class="btn-comprar-pc">Agregar configuración al carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE PREGUNTAS FRECUENTES (FAQ) ANIMADO -->
+    <div id="faq-overlay" class="faq-overlay">
+        <div class="faq-modal">
+            <h2>Preguntas Frecuentes</h2>
+            <p style="margin-bottom: 20px; font-size: 14px; opacity: 0.75;">Resolvé tus dudas sobre pagos, envíos, garantías y soporte técnico.</p>
+            
+            <div class="faq-container" style="display: flex; flex-direction: column; gap: 20px; max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+                <div class="faq-categoria">
+                    <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color, #007bff); margin-bottom: 10px; font-weight: 700;">1. Pagos y Facturación</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Qué medios de pago aceptan?</button>
+                        <div class="faq-respuesta">Aceptamos tarjetas de crédito y débito, transferencias bancarias, y pagos a través de plataformas digitales (como Mercado Pago, PayPal, etc.).</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Hacen factura A y B?</button>
+                        <div class="faq-respuesta">Sí, emitimos ambos tipos de factura. Solo debes ingresar tus datos fiscales (CUIT y razón social) al momento de realizar el checkout.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Es seguro comprar en la web?</button>
+                        <div class="faq-respuesta">Totalmente. Nuestro sitio cuenta con protocolo de seguridad SSL y encriptación de datos para proteger toda tu información personal y bancaria.</div>
+                    </div>
+                </div>
+
+                <div class="faq-categoria">
+                    <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color, #007bff); margin-bottom: 10px; font-weight: 700;">2. Envíos y Entregas</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Realizan envíos a todo el país?</button>
+                        <div class="faq-respuesta">Sí, enviamos a domicilio o a sucursales de correo en todo el territorio nacional a través de nuestros operadores logísticos asociados.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Cuánto cuesta el envío?</button>
+                        <div class="faq-respuesta">El costo varía según tu código postal y el peso del paquete. Puedes calcularlo ingresando tu código postal en el carrito de compras antes de finalizar el pago.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Cuál es el tiempo de entrega estimado?</button>
+                        <div class="faq-respuesta">Los plazos suelen ser de entre 3 a 7 días hábiles según la localidad. Una vez despachado el producto, te enviaremos un código de seguimiento por correo electrónico.</div>
+                    </div>
+                </div>
+
+                <div class="faq-categoria">
+                    <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color, #007bff); margin-bottom: 10px; font-weight: 700;">3. Garantía y Devoluciones</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Los productos tienen garantía oficial?</button>
+                        <div class="faq-respuesta">Sí, todos nuestros productos son 100% nuevos y cuentan con garantía oficial del fabricante (que varía entre 6 meses y 3 años según el componente).</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Qué hago si un producto llega dañado o no funciona?</button>
+                        <div class="faq-respuesta">Si el producto presenta fallas de fábrica o sufrió daños durante el traslado, debes comunicarte con nosotros dentro de las primeras 48 horas de recibido para gestionar el cambio inmediato.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Puedo devolver un producto si me arrepiento de la compra?</button>
+                        <div class="faq-respuesta">Sí, dispones de un plazo de 10 días desde la recepción para realizar devoluciones, siempre y cuando el producto esté sin uso, en su empaque original cerrado y con todos sus accesorios.</div>
+                    </div>
+                </div>
+
+                <div class="faq-categoria">
+                    <h3 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent-color, #007bff); margin-bottom: 10px; font-weight: 700;">4. Soporte Técnico y Compatibilidad</h3>
+                    
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Me ayudan a verificar si los componentes que elijo son compatibles?</button>
+                        <div class="faq-respuesta">¡Claro que sí! Si tienes dudas sobre las especificaciones tecnicas de tu computadora, puedes consultarnos antes de comprar.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-pregunta">¿Ofrecen servicio de armado de PC?</button>
+                        <div class="faq-respuesta">Sí, si compras todos los componentes principales para una PC (procesador, motherboard, memoria, almacenamiento, fuente y gabinete), el servicio de ensamblaje y prueba de arranque se realiza sin cargo adicional.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETALLE DE PRODUCTO TIPO MERCADO LIBRE -->
+    <div id="detalle-overlay" class="detalle-overlay">
+        <div class="detalle-modal">
+            <button id="detalle-cerrar" class="detalle-header-cerrar">&times;</button>
+            <div class="detalle-body">
+                
+                <!-- Parte Superior: Imagen Zoom + Acciones -->
+                <div class="detalle-grid-superior">
+                    <div class="detalle-imagen-container" id="zoom-container">
+                        <img id="detalle-img" src="" alt="Imagen del producto">
+                    </div>
+                    
+                    <div class="detalle-info-compra">
+                        <span class="detalle-condicion" id="detalle-condicion">Nuevo | +100 vendidos</span>
+                        <h2 class="detalle-titulo" id="detalle-titulo">Nombre del Producto</h2>
+                        <div class="detalle-precio" id="detalle-precio">$0</div>
+                        <div class="detalle-cuotas">en 12x $<span id="detalle-cuota-monto">0</span> sin interés</div>
+                        <div class="detalle-envio">Llega gratis <span>mañana</span></div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                            <button class="btn-comprar-modal" id="btn-comprar-ahora">Comprar ahora</button>
+                            <button class="btn-carrito-modal" id="btn-agregar-carrito-modal">Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parte Inferior: Información Técnica y Especificaciones -->
+                <div class="detalle-seccion-tecnica">
+                    <h3>Características principales</h3>
+                    <table class="detalle-tabla-specs" id="detalle-tabla">
+                        <!-- Se llena dinámicamente -->
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú Lateral Deslizable -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <div id="drawer-menu" class="drawer-menu">
+        <div class="drawer-col-izq">
+            <div class="drawer-header-top">
+                <span class="logo-drawer">NEOGAME STORE</span>
+            </div>
+            
+            <div class="drawer-accesos-rapidos">
+                <a href="#" class="drawer-btn-rapido" id="drawer-btn-armar">⚡ Armá tu PC</a>
+            </div>
+
+            <!-- Enlaces del menú lateral -->
+            <a href="#computadoras" class="drawer-item-cat activo" data-target="computadoras">Computadoras <span class="flecha"></span></a>
+            <a href="#notebooks" class="drawer-item-cat" data-target="notebooks">Notebooks <span class="flecha"></span></a>
+            <a href="#componentes" class="drawer-item-cat" data-target="componentes">Componentes de PC <span class="flecha"></span></a>
+            <a href="#perifericos" class="drawer-item-cat" data-target="perifericos">Periféricos <span class="flecha"></span></a>
+            <a href="#monitores" class="drawer-item-cat" data-target="monitores">Monitores <span class="flecha"></span></a>
+
+            <div class="drawer-footer-links">
+                <a href="#" class="drawer-link-secundario">Seguir mi Pedido</a>
+                <a href="#" class="drawer-link-secundario">Subir Comprobante</a>
+                <a href="#" class="drawer-link-secundario">RMA – Garantía</a>
+                <a href="#" class="drawer-link-secundario">Ayuda</a>
+            </div>
+        </div>
+
+        <div class="drawer-col-der">
+            <div id="subcat-computadoras" class="subcat-grupo activo">
+                <div class="subcat-titulo-seccion">Computadoras</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="computadoras">Ver todas</a></li>
+                    <li><a href="#" data-filtro="pc-economica">PC Gamer Económicas</a></li>
+                    <li><a href="#" data-filtro="pc-oficina">PC Oficina y Estudio</a></li>
+                    <li><a href="#" data-filtro="pc-stream">PC Gamer para Jugar y Stream</a></li>
+                    <li><a href="#" data-filtro="pc-alta">PC Gamer Gama Alta</a></li>
+                    <li><a href="#" data-filtro="pc-ia">PC para Diseño e IA</a></li>
+                </ul>
+            </div>
+            <div id="subcat-notebooks" class="subcat-grupo">
+                <div class="subcat-titulo-seccion">Notebooks</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="notebooks">Ver todas</a></li>
+                    <li><a href="#" data-filtro="notebooks-intel">Notebooks Intel</a></li>
+                    <li><a href="#" data-filtro="notebooks-amd">Notebooks AMD</a></li>
+                </ul>
+                <div class="subcat-titulo-seccion">Accesorios</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="mouse-inalambrico">Mouse inalámbrico</a></li>
+                    <li><a href="#" data-filtro="mouse-pads">Mouse pads</a></li>
+                    <li><a href="#" data-filtro="mochilas">Mochilas</a></li>
+                </ul>
+                <div class="subcat-titulo-seccion">Almacenamiento y Memoria</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="ssd">Discos SSD</a></li>
+                    <li><a href="#" data-filtro="discos-externos">Discos externos</a></li>
+                    <li><a href="#" data-filtro="pendrives">Pendrives</a></li>
+                    <li><a href="#" data-filtro="memorias-sodimm">Memorias SODIMM</a></li>
+                </ul>
+            </div>
+            <div id="subcat-componentes" class="subcat-grupo">
+                <div class="subcat-titulo-seccion">Microprocesadores</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="componentes">Ver todos</a></li>
+                    <li><a href="#" data-filtro="intel">Intel</a></li>
+                    <li><a href="#" data-filtro="amd">AMD</a></li>
+                </ul>
+                <div class="subcat-titulo-seccion">Motherboards</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="motherboards">Ver todas</a></li>
+                    <li><a href="#" data-filtro="am4">AM4</a></li>
+                    <li><a href="#" data-filtro="am5">AM5</a></li>
+                    <li><a href="#" data-filtro="intel-1700">Intel 1700</a></li>
+                    <li><a href="#" data-filtro="intel-1851">Intel 1851</a></li>
+                </ul>
+                <div class="subcat-titulo-seccion">Memoria RAM</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="ram">Ver todas</a></li>
+                    <li><a href="#" data-filtro="ddr4">DDR4</a></li>
+                    <li><a href="#" data-filtro="ddr5">DDR5</a></li>
+                </ul>
+                <div class="subcat-titulo-seccion">Almacenamiento</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="almacenamiento">Ver todos</a></li>
+                    <li><a href="#" data-filtro="ssd-m2">Discos SSD M.2</a></li>
+                    <li><a href="#" data-filtro="ssd-sata">Discos SSD Sata</a></li>
+                </ul>
+            </div>
+            <div id="subcat-perifericos" class="subcat-grupo">
+                <div class="subcat-titulo-seccion">Periféricos</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="perifericos">Ver todos</a></li>
+                    <li><a href="#" data-filtro="teclados">Teclados mecánicos</a></li>
+                    <li><a href="#" data-filtro="mouses">Mouses gamer</a></li>
+                    <li><a href="#" data-filtro="auriculares">Auriculares con microfono</a></li>
+                    <li><a href="#" data-filtro="microfonos">Micrófonos streaming</a></li>
+                    <li><a href="#" data-filtro="pendrives">Pendrives</a></li>
+                </ul>
+            </div>
+            <div id="subcat-monitores" class="subcat-grupo">
+                <div class="subcat-titulo-seccion">Monitores</div>
+                <ul class="subcat-lista">
+                    <li><a href="#" data-filtro="monitores">Ver todos</a></li>
+                    <li><a href="#" data-filtro="monitores-gamer">Monitores Gamer 144Hz / 240Hz</a></li>
+                    <li><a href="#" data-filtro="monitores-oficina">Monitores de Oficina IPS</a></li>
+                    <li><a href="#" data-filtro="monitores-ultrawide">Monitores UltraWide</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-fila-superior">
+            <a href="#" class="logo-container">
+                <img src="Imagenes/Icono/IconoWeb.png" alt="Logo NeoGame" class="logo-img">
+                <span class="logo-marca">NEOGAME</span>
+            </a>
+            <div class="buscador-container">
+                <input type="text" class="buscador-input" placeholder="Buscar en NeoGame...">
+                <button class="buscador-btn" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="nav-derecha">
+                <button id="btn-iniciar-sesion" class="btn-iniciar-sesion">Iniciar sesión</button>
+            </div>
+        </div>
+
+        <div class="nav-fila-inferior">
+            <div class="nav-izquierda-prod">
+                <button id="btn-productos" class="btn-tres-barras" aria-label="Menú de productos">&#9776;</button>
+            </div>
+            <div class="nav-centro-links">
+                <a href="#" class="nav-link menu-activo" id="btn-link-productos" data-seccion="productos">Productos</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="oferta" data-seccion="ofertas">Ofertas</a>
+                <a href="#" class="nav-link menu-activo btn-armar" id="btn-arm-pc" data-seccion="armar-pc">Armá tu PC</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="computadoras" data-seccion="computadoras">Computadoras</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="notebooks" data-seccion="notebooks">Notebooks</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="monitores" data-seccion="monitores">Monitores</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="gabinetes" data-seccion="gabinetes">Gabinetes</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="placas-video" data-seccion="placas-video">Placas de Video</a>
+                <a href="#" class="nav-link menu-activo filtro-link" data-filtro="componentes" data-seccion="empresas">Componentes</a>
+            </div>
+            <div class="nav-derecha-modo">
+                <button id="btn-modo" class="modo-btn">
+                    <span id="texto-modo">Modo claro</span> 
+                    <span id="icono-modo">☀️</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BANNER ROTATIVO (CARRUSEL) -->
+    <section class="banner-rotativo-seccion">
+        <div class="carrusel-container">
+            <div class="carrusel-track" id="carrusel-track">
+                <!-- Slide 1: Redirige al Kit de Periféricos (ID 5) -->
+                <div class="carrusel-slide">
+                    <a href="html/producto.html?id=5">
+                        <img src="Imagenes/Ofertasespeciales/OfertaEspecialkitgamercompleto.jpg" alt="Oferta Especial Kit Gamer Completo">
+                    </a>
+                </div>
+                <!-- Slide 2: Redirige a la RTX 4090 (ID 8) -->
+                <div class="carrusel-slide">
+                    <a href="html/producto.html?id=8">
+                        <img src="Imagenes/Ofertasespeciales/ofertatarjeta_rtx.jpg" alt="Promoción Destacada NeoGame">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Botones de navegación lateral -->
+            <button class="carrusel-btn prev" id="carrusel-prev">&#10094;</button>
+            <button class="carrusel-btn next" id="carrusel-next">&#10095;</button>
+
+            <!-- Puntos indicadores inferiores -->
+            <div class="carrusel-puntos" id="carrusel-puntos">
+                <button class="punto activo" data-index="0"></button>
+                <button class="punto" data-index="1"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE FILTROS AVANZADOS (PRECIO Y ORDENAMIENTO) -->
+    <section class="advanced-filters-section">
+        <div class="advanced-filters-container">
+            <!-- Filtro por Rango de Precio -->
+            <div class="filter-group">
+                <label for="priceRange">Precio máximo: $<span id="priceOutput">2000000</span></label>
+                <input type="range" id="priceRange" min="0" max="2000000" step="20000" value="2000000">
+            </div>
+
+            <!-- Ordenar por -->
+            <div class="filter-group">
+                <label for="sortSelect">Ordenar catálogo por:</label>
+                <select id="sortSelect">
+                    <option value="default">Por defecto</option>
+                    <option value="low-high">Menor precio</option>
+                    <option value="high-low">Mayor precio</option>
+                    <option value="name">Nombre (A-Z)</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenedor del Catálogo con los IDs correspondientes -->
+    <main class="catalogo">
+        <section id="computadoras">
+            <!-- Contenido dinámico de Computadoras -->
+        </section>
+        <section id="notebooks">
+            <!-- Contenido dinámico de Notebooks -->
+        </section>
+        <section id="componentes">
+            <!-- Contenido dinámico de Componentes -->
+        </section>
+        <section id="combos">
+            <!-- Contenido dinámico de Combos -->
+        </section>
+        <section id="perifericos">
+            <!-- Contenido dinámico de Periféricos -->
+        </section>
+        <section id="monitores">
+            <!-- Contenido dinámico de Monitores -->
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-principal">
+        <div class="footer-container">
+            <div class="footer-col brand">
+                <h3>NEOGAME STORE</h3>
+                <p>La tienda N°1 en Computación y Gaming.</p>
+            </div>
+            <div class="footer-col">
+                <h3>EMPRESA</h3>
+                <a href="#">Quiénes somos</a>
+                <a href="#">Unite al equipo</a>
+            </div>
+            <div class="footer-col">
+                <h3>SOPORTE</h3>
+                <a href="#">Garantía</a>
+                <a href="#">Seguir mi pedido</a>
+                <a href="#">Preguntas frecuentes</a>
+                <a href="#">Botón de arrepentimiento</a>
+            </div>
+            <div class="footer-col">
+                <h3>LEGAL</h3>
+                <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/norma.htm" target="_blank">Ley N° 24.240</a>
+                <a href="#">Conocé tus derechos</a>
+            </div>
+            <div class="footer-col">
+                <h3>CONTACTO</h3>
+                <p>Whatsapp: 3743559592</p>
+                <p>Email: maximoborreda@gmail.com</p>
+                <p>Empresas: empresas@neogame.com.ar</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vinculación al archivo main.js junto a los scripts de filtrado y el modal de detalle tipo ML -->
+    <script src="js/main.js"></script>
+    <script>
+        // Lógica del Carrusel (Banner Rotativo)
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('carrusel-track');
+            if (track) {
+                const slides = Array.from(track.children);
+                const nextButton = document.getElementById('carrusel-next');
+                const prevButton = document.getElementById('carrusel-prev');
+                const puntosContainer = document.getElementById('carrusel-puntos');
+                const puntos = Array.from(puntosContainer.children);
+
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+
+                function actualizarCarrusel(index) {
+                    track.style.transform = `translateX(-${index * 100}%)`;
+                    puntos.forEach((punto, i) => {
+                        punto.classList.toggle('activo', i === index);
+                    });
+                }
+
+                if (nextButton && prevButton) {
+                    nextButton.addEventListener('click', () => {
+                        currentIndex = (currentIndex + 1) % totalSlides;
+                        actualizarCarrusel(currentIndex);
+                    });
+
+                    prevButton.addEventListener('click', () => {
+                        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                        actualizarCarrusel(currentIndex);
+                    });
+                }
+
+                puntos.forEach(punto => {
+                    punto.addEventListener('click', (e) => {
+                        currentIndex = Number(e.target.getAttribute('data-index'));
+                        actualizarCarrusel(currentIndex);
+                    });
+                });
+
+                // Rotación automática cada 5 segundos
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    actualizarCarrusel(currentIndex);
+                }, 5000);
+            }
+        });
+
+        // Lógica Interactiva para el Filtro de Precio en Tiempo Real
+        document.addEventListener('DOMContentLoaded', () => {
+            const priceRange = document.getElementById('priceRange');
+            const priceOutput = document.getElementById('priceOutput');
+
+            if (priceRange && priceOutput) {
+                priceRange.addEventListener('input', (e) => {
+                    const valorMaximo = Number(e.target.value);
+                    priceOutput.textContent = valorMaximo.toLocaleString('es-AR');
+
+                    // Filtra dinámicamente las tarjetas de productos visibles según su atributo data-precio
+                    const tarjetasProductos = document.querySelectorAll('.producto-card');
+                    tarjetasProductos.forEach(card => {
+                        const precioCard = Number(card.getAttribute('data-precio') || 0);
+                        if (precioCard <= valorMaximo) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Llama de forma compatible si existe una función global de filtrado por precio en main.js
+                    if (typeof filtrarProductosPorPrecio === 'function') {
+                        filtrarProductosPorPrecio(valorMaximo);
+                    }
+                });
+            }
+        });
+
+        // Script para filtrar productos mediante data-filtro y realizar scroll suave
+        document.querySelectorAll('.drawer-item-cat, .subcat-lista a').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const filtroSeleccionado = this.getAttribute('data-filtro');
+                let targetId = "";
+                const itemCat = this.closest('.subcat-grupo');
+                
+                if (itemCat) {
+                    targetId = itemCat.id.replace('subcat-', '');
+                } else {
+                    targetId = this.getAttribute('data-target');
+                }
+
+                if (filtroSeleccionado && typeof filtrarProductosPorCategoria === 'function') {
+                    filtrarProductosPorCategoria(filtroSeleccionado);
+                } else if (filtroSeleccionado) {
+                    const eventoFiltro = new CustomEvent('filtrarProductos', { detail: { filtro: filtroSeleccionado } });
+                    document.dispatchEvent(eventoFiltro);
+                }
+
+                const seccionDestino = document.getElementById(targetId);
+                if (seccionDestino) {
+                    seccionDestino.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                const drawerMenu = document.getElementById('drawer-menu');
+                const drawerOverlay = document.getElementById('drawer-overlay');
+                if (drawerMenu) drawerMenu.classList.remove('activo');
+                if (drawerOverlay) drawerOverlay.classList.remove('activo');
+            });
+        });
+
+        // Script para el funcionamiento del Modal Detalle de Producto con Zoom
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('detalle-overlay');
+            const btnCerrar = document.getElementById('detalle-cerrar');
+            const zoomContainer = document.getElementById('zoom-container');
+            const imgDetalle = document.getElementById('detalle-img');
+
+            window.abrirDetalleProducto = function(producto) {
+                document.getElementById('detalle-titulo').textContent = producto.nombre;
+                document.getElementById('detalle-precio').textContent = `$${Number(producto.precio).toLocaleString('es-AR')}`;
+                document.getElementById('detalle-cuota-monto').textContent = Math.round(producto.precio / 12).toLocaleString('es-AR');
+                imgDetalle.src = producto.imagen;
+                document.getElementById('detalle-condicion').textContent = producto.condicion || "Nuevo | Stock disponible";
+
+                const tablaSpecs = document.getElementById('detalle-tabla');
+                tablaSpecs.innerHTML = '';
+                
+                if (producto.specs && typeof producto.specs === 'object') {
+                    for (const [clave, valor] of Object.entries(producto.specs)) {
+                        tablaSpecs.innerHTML += `
+                            <tr>
+                                <th>${clave}</th>
+                                <td>${valor}</td>
+                            </tr>
+                        `;
+                    }
+                } else {
+                    tablaSpecs.innerHTML = `<tr><td colspan="2" style="text-align:center; opacity:0.7;">Información técnica no especificada para este producto.</td></tr>`;
+                }
+
+                overlay.classList.add('activo');
+            };
+
+            function cerrarModal() {
+                overlay.classList.remove('activo');
+            }
+
+            if(btnCerrar) btnCerrar.addEventListener('click', cerrarModal);
+            if(overlay) {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) cerrarModal();
+                });
+            }
+
+            // Efecto Zoom tipo Mercado Libre
+            if(zoomContainer) {
+                zoomContainer.addEventListener('mousemove', (e) => {
+                    const rect = zoomContainer.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                    imgDetalle.style.transformOrigin = `${x}% ${y}%`;
+                    imgDetalle.style.transform = 'scale(2)';
+                });
+
+                zoomContainer.addEventListener('mouseleave', () => {
+                    imgDetalle.style.transformOrigin = 'center center';
+                    imgDetalle.style.transform = 'scale(1)';
+                });
+            }
+
+            // Evento click global para abrir el detalle al hacer clic en tarjetas de productos
+            document.addEventListener('click', (e) => {
+                const card = e.target.closest('.producto-card');
+                if (card && !e.target.closest('button')) {
+                    const productoEjemplo = {
+                        nombre: card.getAttribute('data-nombre') || "Procesador / Componente Gamer NeoGame",
+                        precio: card.getAttribute('data-precio') || 195000,
+                        imagen: card.querySelector('img')?.src || "Imagenes/Icono/IconoWeb.png",
+                        condicion: "Nuevo | Oficial NeoGame",
+                        specs: {
+                            "Marca": "NeoGame Hardware",
+                            "Modelo": "Gamer Series 2026",
+                            "Garantía": "12 Meses Oficial",
+                            "Tecnología": "Alto rendimiento",
+                            "Compatibilidad": "Universal / Estándar ATX"
+                        }
+                    };
+                    abrirDetalleProducto(productoEjemplo);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
