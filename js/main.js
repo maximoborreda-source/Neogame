@@ -518,7 +518,7 @@ if (buscadorInput) {
 }
 
 // ==========================================
-// RENDERIZADO DE CATÁLOGO CON ANIMACIÓN Y ORDENAMIENTO
+// RENDERIZADO DE CATÁLOGO (DIRECCIÓN A producto.html)
 // ==========================================
 function renderizarCatalogo(productosAMostrar = productosDB) {
     const contenedorCatalogo = document.querySelector('.catalogo');
@@ -586,6 +586,7 @@ function renderizarCatalogo(productosAMostrar = productosDB) {
             ${seccionPrecios}
         `;
 
+        // REDIRECCIÓN DIRECTA A LA PÁGINA INDEPENDIENTE DE PRODUCTO
         card.addEventListener('click', () => {
             window.location.href = `html/producto.html?id=${prod.id}`;
         });
