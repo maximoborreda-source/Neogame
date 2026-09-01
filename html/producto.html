@@ -64,7 +64,6 @@
             border: 1px solid var(--border-color, #dddddd);
         }
 
-        /* Contenedor de la galería */
         .galeria-producto {
             width: 100%;
             max-width: 500px;
@@ -109,7 +108,6 @@
             transform: scale(1.6);
         }
 
-        /* Contenedor de la miniatura única abajo */
         .miniatura-container {
             display: flex;
             gap: 10px;
@@ -405,7 +403,7 @@
         </div>
     </nav>
 
-    <!-- Contenido Principal con Miniatura Única Abajo -->
+    <!-- Contenido Principal -->
     <main class="detalle-container">
         <div class="galeria-producto">
             <div class="imagen-principal-container">
@@ -504,7 +502,6 @@
     </footer>
 
     <script>
-        // MODO OSCURO / CLARO
         const modoGuardado = localStorage.getItem('modoNeoGame') || 'claro';
         const textoModo = document.getElementById('texto-modo');
         const iconoModo = document.getElementById('icono-modo');
@@ -516,7 +513,6 @@
             if(iconoModo) iconoModo.textContent = '🌙';
         }
 
-        // DRAWER LATERAL
         const btnProductos = document.getElementById('btn-productos');
         const drawerMenu = document.getElementById('drawer-menu');
         const drawerOverlay = document.getElementById('drawer-overlay');
@@ -552,7 +548,6 @@
             });
         });
 
-        // BASE DE DATOS DE PRODUCTOS
         const productosData = {
             1: {
                 nombre: 'Mouse Gaming DPI 2600',
@@ -717,12 +712,10 @@
             }
         };
 
-        // OBTENCIÓN DEL PRODUCTO DESDE LA URL
         const params = new URLSearchParams(window.location.search);
         const productoKey = params.get('id') || params.get('prod');
         const p = productosData[productoKey] || productosData[1];
 
-        // RENDERIZAR DATOS EN LA PÁGINA
         document.getElementById('page-title').textContent = p.nombre + ' - NeoGame Store';
         document.getElementById('prod-titulo').textContent = p.nombre;
         document.getElementById('prod-precio').textContent = p.precio;
@@ -742,7 +735,6 @@
         document.getElementById('spec-wireless').textContent = p.wireless;
         document.getElementById('spec-cable').textContent = p.cable;
 
-        // CREAR LA ÚNICA MINIATURA ABAJO AUTOMÁTICAMENTE
         const contenedorMiniaturas = document.getElementById('miniatura-container');
         if (contenedorMiniaturas) {
             contenedorMiniaturas.innerHTML = '';
@@ -752,7 +744,6 @@
             contenedorMiniaturas.appendChild(miniatura);
         }
 
-        // BOTÓN MODO OSCURO
         const btnModo = document.getElementById('btn-modo');
         if(btnModo) {
             btnModo.addEventListener('click', () => {
